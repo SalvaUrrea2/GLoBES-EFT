@@ -1,8 +1,8 @@
 # GLoBES-EFT
 
-The phenomenological results presented in this paper were obtained using a custom-built probability engine for the GLoBES framework, which we call GLoBES-EFT. This plugin implements a complete and consistent framework for both Weak Effective Field Theory (WEFT) and Standard Model Effective Field Theory (SMEFT). It correctly models new physics effects in neutrino production, propagation, and detection, and handles the renormalisation group evolution (RGE) using the results in Ref.~\cite{Gonzalez-Alonso:2017iyc} and the matching between the two EFTs given in \cref{sec:matching}. This section serves as a technical manual for users who wish to employ GLoBES-EFT in their own analyses. 
+GLoBES-EFT is a custom-built probability engine for the GLoBES framework that implements a complete and consistent framework for both Weak Effective Field Theory (WEFT) and Standard Model Effective Field Theory (SMEFT) developed in arXiv:XXXX.XXXXX. This plugin correctly models new physics effects in neutrino production, propagation, and detection, and handles the renormalisation group evolution (RGE) using the results from arXiv:1706.00410  and the matching between the two EFTs as described in the accompanying paper. This README serves as a technical manual for users who wish to employ GLoBES-EFT in their own analyses. 
 
-Both production and detection processes are implemented through the use of production coefficients $p_{XY, \alpha}^{S, jk}$ and detection coefficients $d_{XY, \beta}^{\mathrm{Type}, \mathrm{rs}}$, as introduced in \cref{sec:Productions} and \cref{sec:Detection}, respectively. The production coefficients depend on the parent meson $S$, while the detection coefficients depend on the type of cross section. While GLoBES already separates different cross section types, it typically treats fluxes as total fluxes without distinguishing their parent meson origin. However, in our EFT formalism, this separation is essential: each total flux must be decomposed into its contributions from individual parent mesons. To accommodate this, both production and detection coefficients are provided in external files. Each file begins with a first column that specifies the neutrino energy---in units of GeV for production, and in $\log(E)$ for detection. The remaining columns contain the EFT coefficient values, arranged in a fixed and structured order:
+Both production and detection processes are implemented through the use of production coefficients $p_{XY, \alpha}^{S, jk}$ and detection coefficients $d_{XY, \beta}^{\mathrm{Type}, \mathrm{rs}}$, as introduced in the Productions and Detection sections of the accompanying paper, respectively. The production coefficients depend on the parent meson $S$, while the detection coefficients depend on the type of cross section. While GLoBES already separates different cross section types, it typically treats fluxes as total fluxes without distinguishing their parent meson origin. However, in our EFT formalism, this separation is essential: each total flux must be decomposed into its contributions from individual parent mesons. To accommodate this, both production and detection coefficients are provided in external files. Each file begins with a first column that specifies the neutrino energy---in units of GeV for production, and in $\log(E)$ for detection. The remaining columns contain the EFT coefficient values, arranged in a fixed and structured order:
 
 - The outermost loop is over the Lorentz structure pairs $XY \in \{\text{LL}, \text{LR}, \text{LS}, \text{LP}, \text{LT}, \dots\}$.
 - For each fixed Lorentz structure, the coefficients vary over lepton flavor indices $\alpha = e, \mu, \tau$, first for neutrinos and then for antineutrinos.
@@ -62,7 +62,7 @@ The plugin supports both WEFT and SMEFT modes. If nothing is specified, the code
 
 Note that in SMEFT mode, the Wilson coefficients are assumed to be defined at 1 TeV. The code then runs the RGE evolution to the electroweak scale, performs matching to WEFT, and continues the evolution within WEFT to 2 GeV or to the $b$-quark mass, depending on the operator. In our DUNE implementation, operators involving $b$-quarks are not probed, so all WEFT coefficients are evaluated at 2 GeV. In contrast, WEFT mode assumes the user-defined Wilson coefficients are already at 2 GeV.
 
-For convenience, it is recommended to use `smeft_glbSetOscParamByName` to assign human-readable names to the SMEFT and WEFT parameters as defined and shown in example `example-smeft`. A list of appropriate names is provided in the global array `char smeft_param_strings[][64]`. The naming conventions are detailed in \cref{tab:weft_params_globes} for WEFT and \cref{tab:smeft_params_globes} for SMEFT.
+For convenience, it is recommended to use `smeft_glbSetOscParamByName` to assign human-readable names to the SMEFT and WEFT parameters as defined and shown in example `example-smeft`. A list of appropriate names is provided in the global array `char smeft_param_strings[][64]`. The naming conventions are detailed in the WEFT and SMEFT parameter tables below.
 
 ## WEFT Parameter Names
 
@@ -108,7 +108,7 @@ WEFT parameter names available in GLoBES-EFT. Lepton flavor indices $\alpha, \be
 
 SMEFT operator parameter names available in GLoBES-EFT. Lepton indices $p,r,s,t$ correspond to `E, MU, TAU`. Up-type quark indices $j_u, k_u$ correspond to `u, c, t`; down-type $j_d, k_d$ to `d, s, b`; and quark doublet families $j_q, k_q$ to `Q1, Q2, Q3`.
 
-The user might also want to have access to the oscillation probabilities used. In GLoBES-EFT, these are in fact the pseudo-probability $\tilde{P}_{\alpha \beta}^S\left(E_\nu, L\right)$ defined in \cref{eq:tildeP}. The main difference is that this pseudo-probability depends on both the parent meson and the type of cross section. Instead of using the native GLoBES functions to extract probabilities, one should use the following modified ones:
+The user might also want to have access to the oscillation probabilities used. In GLoBES-EFT, these are in fact the pseudo-probability $\tilde{P}_{\alpha \beta}^S\left(E_\nu, L\right)$ defined in the accompanying paper. The main difference is that this pseudo-probability depends on both the parent meson and the type of cross section. Instead of using the native GLoBES functions to extract probabilities, one should use the following modified ones:
 
 ```
 double smeft_glbVacuumProbability(int initial_flavour, int final_flavour,
@@ -128,3 +128,16 @@ After using the GLoBES-EFT engine, it is good practice to release the small amou
 ```
 smeft_free_probability_engine();
 ```
+
+## Contact
+
+For questions or support regarding GLoBES-EFT, please contact:
+
+**The GLoBES-EFT Team**
+---------------
+
+Joachim Kopp <jkopp@cern.ch>
+
+Zahra Tabrizi <z_tabrizi@pitt.edu>
+
+Salvador Urrea <salvador.urrea@ijclab.in2p3.fr>
