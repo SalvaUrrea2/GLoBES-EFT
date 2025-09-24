@@ -430,7 +430,7 @@ Copyright (C) 2021 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/home/salva/Desktop/work/projects/current/Joachim_globes/globes/Distribution'
+ac_pwd='/home/salva/Desktop/work/GLoBES-EFT-main'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
 MKDIR_P='/usr/bin/mkdir -p'
@@ -933,7 +933,7 @@ S["mkdir_p"]="$(MKDIR_P)"
 S["MKDIR_P"]="/usr/bin/mkdir -p"
 S["INSTALL_STRIP_PROGRAM"]="$(install_sh) -c -s"
 S["STRIP"]="strip"
-S["install_sh"]="${SHELL} /home/salva/Desktop/work/projects/current/Joachim_globes/globes/Distribution/install-sh"
+S["install_sh"]="${SHELL} /home/salva/Desktop/work/GLoBES-EFT-main/install-sh"
 S["MAKEINFO"]="makeinfo"
 S["AUTOHEADER"]="autoheader"
 S["AUTOMAKE"]="automake-1.16"
