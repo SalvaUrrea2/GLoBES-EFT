@@ -51,7 +51,7 @@
 
 char smeft_param_strings[MAX_PARAMS][MAX_NAME_LENGTH];
 int number_param = MAX_PARAMS;   
-
+static char **smeftparamnames = NULL;
 // Function to get index of a parameter
 int get_index(char smeft_param_strings[][MAX_NAME_LENGTH], int size, char *str) {
     for (int i = 0; i < size; i++) {
@@ -60,6 +60,28 @@ int get_index(char smeft_param_strings[][MAX_NAME_LENGTH], int size, char *str) 
     }
     return -1;
 }
+
+int copyNames() {
+    int nP = glbGetNumOfOscParams();
+    smeftparamnames = calloc(nP, sizeof(char*));
+    if (!smeftparamnames) { perror("calloc"); return -1; }
+
+    for (int k = 0; k < nP; k++) {
+        
+        if (smeft_param_strings[k][0] != '\0') {
+            smeftparamnames[k] = malloc(MAX_NAME_LENGTH);
+            if (!smeftparamnames[k]) { perror("malloc"); return -1; }
+       
+            strncpy(smeftparamnames[k], smeft_param_strings[k], MAX_NAME_LENGTH - 1);
+            smeftparamnames[k][MAX_NAME_LENGTH - 1] = '\0';
+        } else {
+            smeftparamnames[k] = NULL;  
+        }
+    }
+    return 0;
+}
+
+
 
 // Function to set oscillation parameter by name
 int smeft_glbSetOscParamByName(glb_params p, double value, char *name) {
@@ -124,7 +146,8 @@ int main(int argc, char *argv[])
     /*Set the true values*/ 
     glbSetOscillationParameters(true_values);
     glbSetRates();
-    
+    copyNames();
+    glbSetParamNames(smeftparamnames);
     /* ========================================= */
     /* 1. Check production and detection coefficients */
     /* ========================================= */
@@ -184,8 +207,8 @@ int main(int argc, char *argv[])
     
     /* Set a WEFT parameter */
     printf("Setting WEFT parameter: |ε_R^{ud}|_{ee} = 1e-3\n");
-    smeft_glbSetOscParamByName(test_values, 0.001, "ABS_EPS_CC_R_ud_EE");
-    smeft_glbSetOscParamByName(test_values, 0.0, "ARG_EPS_CC_L_ud_EE");
+    glbSetOscParamByName(test_values, 0.001, "ABS_EPS_CC_R_ud_EE");
+    glbSetOscParamByName(test_values, 0.0, "ARG_EPS_CC_L_ud_EE");
     
     /* Compute chi-squared with WEFT operators */
     double chi2_weft = glbChiSys(test_values, GLB_ALL, GLB_ALL);
@@ -205,14 +228,14 @@ int main(int argc, char *argv[])
     printf("Switching to SMEFT mode (Wilson coefficients at 1 TeV)\n");
     printf("Will run RGE: 1 TeV → EW scale → WEFT matching → 2 GeV\n");
     
-    smeft_glbSetOscParamByName(test_values, 1, "SMEFT_FLAG");
+    glbSetOscParamByName(test_values, 1, "SMEFT_FLAG");
     
     
     
      /* Set a SMEFT parameter - four-fermion operator */
     printf("Setting SMEFT parameter: |C_ll|_{eeee} = 1e-3\n");
-    smeft_glbSetOscParamByName(test_values, 1e-3, "ABS_C_LL_EE_EE");
-    smeft_glbSetOscParamByName(test_values, 0.0, "ARG_C_LL_EE_EE");
+    glbSetOscParamByName(test_values, 1e-3, "ABS_C_LL_EE_EE");
+    glbSetOscParamByName(test_values, 0.0, "ARG_C_LL_EE_EE");
     
     
     
