@@ -43,7 +43,7 @@
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_blas.h>
 #include <gsl/gsl_eigen.h>
-#include "smeft.h"
+#include "globes/smeft.h"
 
 
 #define MAX_PARAMS 2405       // Adjust as needed
