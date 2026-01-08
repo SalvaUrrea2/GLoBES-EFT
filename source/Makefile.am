@@ -26,6 +26,7 @@ bin_PROGRAMS = globes globes-accuracy globes-deltatheta globes-discovery\
 
 endif
 
+pkginclude_HEADERS = smeft.h Running_and_matching.h
 
 globes_SOURCES = globes.c 
 globes_LDADD = libglobes.la @LIBS@

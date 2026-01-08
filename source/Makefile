@@ -16,6 +16,7 @@
 
 
 
+
 am__is_gnu_make = { \
   if test -z '$(MAKELEVEL)'; then \
     false; \
@@ -87,8 +88,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = x86_64-unknown-linux-gnu
-host_triplet = x86_64-unknown-linux-gnu
+build_triplet = x86_64-pc-linux-gnu
+host_triplet = x86_64-pc-linux-gnu
 bin_PROGRAMS = globes$(EXEEXT) \
 	globes-accuracy$(EXEEXT) \
 	globes-deltatheta$(EXEEXT) \
@@ -108,12 +109,14 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/exitfail.m4 \
 	$(top_srcdir)/configure.in
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
-DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
+DIST_COMMON = $(srcdir)/Makefile.am $(pkginclude_HEADERS) \
+	$(am__DIST_COMMON)
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libdir)"
+am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libdir)" \
+	"$(DESTDIR)$(pkgincludedir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
@@ -272,6 +275,7 @@ am__can_run_installinfo = \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
+HEADERS = $(pkginclude_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
 # and print each of them once, without duplicates.  Input order is
@@ -290,17 +294,17 @@ am__define_uniq_tagged_files = \
     if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
   done | $(am__uniquify_input)`
 am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/depcomp \
-	$(top_srcdir)/mkinstalldirs $(top_srcdir)/ylwrap INSTALL \
-	glb_lexer.c glb_parser.c glb_parser.h
+	$(top_srcdir)/mkinstalldirs $(top_srcdir)/ylwrap glb_lexer.c \
+	glb_parser.c glb_parser.h
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = aclocal-1.16
+ACLOCAL = ${SHELL} '/home/salva/Desktop/GLoBES-EFT/missing' aclocal-1.16
 ALLOCA = 
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 0
 AR = ar
-AUTOCONF = autoconf
-AUTOHEADER = autoheader
-AUTOMAKE = automake-1.16
+AUTOCONF = ${SHELL} '/home/salva/Desktop/GLoBES-EFT/missing' autoconf
+AUTOHEADER = ${SHELL} '/home/salva/Desktop/GLoBES-EFT/missing' autoheader
+AUTOMAKE = ${SHELL} '/home/salva/Desktop/GLoBES-EFT/missing' automake-1.16
 AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -322,7 +326,6 @@ EGREP = /usr/bin/grep -E
 ETAGS = etags
 EXEEXT = 
 FGREP = /usr/bin/grep -F
-FILECMD = file
 GLBLIBVERSION = 11:2:3
 GREP = /usr/bin/grep
 GSLINC = -I/usr/local/include
@@ -348,7 +351,7 @@ LTALLOCA =
 LTLIBOBJS =  ${LIBOBJDIR}exitfail$U.lo
 LT_SYS_LIBRARY_PATH = 
 MAINT = #
-MAKEINFO = makeinfo
+MAKEINFO = ${SHELL} '/home/salva/Desktop/GLoBES-EFT/missing' makeinfo
 MANIFEST_TOOL = :
 MKDIR_P = /usr/bin/mkdir -p
 NM = /usr/bin/nm -B
@@ -389,10 +392,10 @@ SWIG_LIB =
 VERSION = 3.2.18
 YACC = yacc
 YFLAGS = 
-abs_builddir = /home/salva/Downloads/GLoBES-EFT-main/source
-abs_srcdir = /home/salva/Downloads/GLoBES-EFT-main/source
-abs_top_builddir = /home/salva/Downloads/GLoBES-EFT-main
-abs_top_srcdir = /home/salva/Downloads/GLoBES-EFT-main
+abs_builddir = /home/salva/Desktop/GLoBES-EFT/source
+abs_srcdir = /home/salva/Desktop/GLoBES-EFT/source
+abs_top_builddir = /home/salva/Desktop/GLoBES-EFT
+abs_top_srcdir = /home/salva/Desktop/GLoBES-EFT
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_DUMPBIN = 
@@ -402,11 +405,11 @@ am__quote =
 am__tar = $${TAR-tar} chof - "$$tardir"
 am__untar = $${TAR-tar} xf -
 bindir = ${exec_prefix}/bin
-build = x86_64-unknown-linux-gnu
+build = x86_64-pc-linux-gnu
 build_alias = 
 build_cpu = x86_64
 build_os = linux-gnu
-build_vendor = unknown
+build_vendor = pc
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
@@ -414,15 +417,15 @@ docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
 hardcode_libdir_flag_spec = $wl-rpath $wl$libdir
-host = x86_64-unknown-linux-gnu
+host = x86_64-pc-linux-gnu
 host_alias = 
 host_cpu = x86_64
 host_os = linux-gnu
-host_vendor = unknown
+host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/salva/Downloads/GLoBES-EFT-main/install-sh
+install_sh = ${SHELL} /home/salva/Desktop/GLoBES-EFT/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -467,6 +470,7 @@ libglobes_la_LDFLAGS = -L/usr/local/lib -lgsl -lgslcblas -lm -lm  -version-info 
 	$(top_builddir)/lib/libgnu.la
 libglobes_la_CPPFLAGS = -DGLB_MODULE_DIR=\"$(pkglibdir)\"
 libglobes_la_DEPENDENCIES = 
+pkginclude_HEADERS = smeft.h Running_and_matching.h
 globes_SOURCES = globes.c 
 globes_LDADD = libglobes.la -L/usr/local/lib -lgsl -lgslcblas -lm -lm 
 globes_accuracy_SOURCES = glb_tools_parser.h glb_tools_parser.c \
@@ -837,6 +841,27 @@ mostlyclean-libtool:
 
 clean-libtool:
 	-rm -rf .libs _libs
+install-pkgincludeHEADERS: $(pkginclude_HEADERS)
+	@$(NORMAL_INSTALL)
+	@list='$(pkginclude_HEADERS)'; test -n "$(pkgincludedir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(pkgincludedir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(pkgincludedir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_HEADER) $$files '$(DESTDIR)$(pkgincludedir)'"; \
+	  $(INSTALL_HEADER) $$files "$(DESTDIR)$(pkgincludedir)" || exit $$?; \
+	done
+
+uninstall-pkgincludeHEADERS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(pkginclude_HEADERS)'; test -n "$(pkgincludedir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(pkgincludedir)'; $(am__uninstall_files_from_dir)
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
@@ -925,11 +950,11 @@ distdir-am: $(DISTFILES)
 check-am: all-am
 check: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) check-am
-all-am: Makefile $(PROGRAMS) $(LTLIBRARIES)
+all-am: Makefile $(PROGRAMS) $(LTLIBRARIES) $(HEADERS)
 install-binPROGRAMS: install-libLTLIBRARIES
 
 installdirs:
-	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libdir)"; do \
+	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libdir)" "$(DESTDIR)$(pkgincludedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: $(BUILT_SOURCES)
@@ -1017,7 +1042,7 @@ info: info-am
 
 info-am:
 
-install-data-am:
+install-data-am: install-pkgincludeHEADERS
 
 install-dvi: install-dvi-am
 
@@ -1089,7 +1114,8 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-binPROGRAMS uninstall-libLTLIBRARIES
+uninstall-am: uninstall-binPROGRAMS uninstall-libLTLIBRARIES \
+	uninstall-pkgincludeHEADERS
 
 .MAKE: all check install install-am install-exec install-strip
 
@@ -1102,12 +1128,13 @@ uninstall-am: uninstall-binPROGRAMS uninstall-libLTLIBRARIES
 	install-data-am install-dvi install-dvi-am install-exec \
 	install-exec-am install-html install-html-am install-info \
 	install-info-am install-libLTLIBRARIES install-man install-pdf \
-	install-pdf-am install-ps install-ps-am install-strip \
-	installcheck installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
-	tags tags-am uninstall uninstall-am uninstall-binPROGRAMS \
-	uninstall-libLTLIBRARIES
+	install-pdf-am install-pkgincludeHEADERS install-ps \
+	install-ps-am install-strip installcheck installcheck-am \
+	installdirs maintainer-clean maintainer-clean-generic \
+	mostlyclean mostlyclean-compile mostlyclean-generic \
+	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-am uninstall \
+	uninstall-am uninstall-binPROGRAMS uninstall-libLTLIBRARIES \
+	uninstall-pkgincludeHEADERS
 
 .PRECIOUS: Makefile
 
