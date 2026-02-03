@@ -2304,7 +2304,7 @@ int smeft_probability_matrix_all(double P[MAX_FLAVORS][MAX_FLAVORS], int cp_sign
                for (int x=0; x < MAX_INTERACTIONS; x++)
                {
                 
-                 t+=0*glb_eft_get_flux_coeff(x, 0, i, E/1.0e9, in->fluxes[flux_id])*conj(UTil[x][l][m][i][j])*_Q[i][k];
+                 t+=glb_eft_get_flux_coeff(x, 0, i, E/1.0e9, in->fluxes[flux_id])*conj(UTil[x][l][m][i][j])*_Q[i][k];
                }
                ProdLin[l][m][i][j][k] =t;
             }
